@@ -7,7 +7,7 @@ from prometheus_client import start_http_server, Gauge
 
 def query_metrics():
     try:
-        config_map = v1.read_namespaced_config_map('cluster-autoscaler-status', 'kube-system').data['status']
+        config_map = v1.read_namespaced_config_map('cluster-autoscaler-status', 'cluster-autoscaler').data['status']
         pools = re.findall(r"Name:\s+(\S+)\n\s+Health:.+\(ready=(\d+) .+ cloudProviderTarget=(\d+) .+ maxSize=(\d+)\)\)\n",
                            config_map, flags=re.M)
         for i in pools:
